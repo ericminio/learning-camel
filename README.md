@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/ericminio/learning-camel.svg?branch=master)](https://travis-ci.org/ericminio/learning-camel)
