@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
 
-public class HelloWorldTest {
+public class ActiveMqTest {
 
     @Test
     public void camelIsAvailable() {
