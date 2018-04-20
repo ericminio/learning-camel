@@ -15,8 +15,7 @@ import java.net.URL;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class HttpTest {
-
+public class JettyTest {
 
     private CamelContext context;
 
