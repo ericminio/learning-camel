@@ -34,13 +34,13 @@ public class HttpGetTest {
             @Override
             public void configure() throws Exception {
                 from("jetty:http://localhost:8888/greeting")
-                        .setBody(constant("Hello World!"));
+                        .setBody(constant("Hello World"));
             }
         });
         HttpResponse response = get( "http://localhost:8888/greeting" );
 
         assertThat(response.getStatusCode(), equalTo(200 ));
-        assertThat(response.getBody(), equalTo( "Hello World!" ));
+        assertThat(response.getBody(), equalTo( "Hello World" ));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class HttpGetTest {
             public void configure() throws Exception {
                 from("jetty:http://localhost:8888/greeting")
                         .process(processor)
-                        .setBody(constant("Hello World!"));
+                        .setBody(constant("Hello World"));
             }
         });
         get( "http://localhost:8888/greeting" );
