@@ -1,4 +1,4 @@
-package ericminio;
+package ericminio.camel;
 
 import com.sun.net.httpserver.HttpServer;
 import org.apache.camel.CamelContext;
@@ -17,7 +17,7 @@ import java.net.URL;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class SendingHttpRequestTest {
+public class HttpProxyTest {
 
     private HttpServer server;
     private CamelContext context;

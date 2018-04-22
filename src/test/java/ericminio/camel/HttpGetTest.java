@@ -1,5 +1,6 @@
-package ericminio;
+package ericminio.camel;
 
+import ericminio.MyProcessor;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -15,7 +16,7 @@ import java.net.URL;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
-public class JettyTest {
+public class HttpGetTest {
 
     private CamelContext context;
 
