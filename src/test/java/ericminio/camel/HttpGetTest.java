@@ -1,6 +1,7 @@
 package ericminio.camel;
 
 import ericminio.MyProcessor;
+import ericminio.support.HttpResponse;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -8,11 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
+import static ericminio.support.GetRequest.get;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -37,20 +34,13 @@ public class HttpGetTest {
             @Override
             public void configure() throws Exception {
                 from("jetty:http://localhost:8888/greeting")
-                        .setBody(constant("Hello, world!"));
+                        .setBody(constant("Hello World!"));
             }
         });
+        HttpResponse response = get( "http://localhost:8888/greeting" );
 
-        HttpURLConnection request = (HttpURLConnection) new URL( "http://localhost:8888/greeting" ).openConnection();
-        assertThat( request.getResponseCode(), equalTo( 200 ) );
-        assertThat(getResponseBody(request), equalTo( "Hello, world!" ) );
-    }
-
-    private String getResponseBody(HttpURLConnection request) throws IOException {
-        InputStream inputStream = request.getInputStream();
-        byte[] response = new byte[ inputStream.available() ];
-        inputStream.read( response );
-        return new String(response);
+        assertThat(response.getStatusCode(), equalTo(200 ));
+        assertThat(response.getBody(), equalTo( "Hello World!" ));
     }
 
     @Test
@@ -61,12 +51,10 @@ public class HttpGetTest {
             public void configure() throws Exception {
                 from("jetty:http://localhost:8888/greeting")
                         .process(processor)
-                        .setBody(constant("Hello, world!"));
+                        .setBody(constant("Hello World!"));
             }
         });
-
-        HttpURLConnection request = (HttpURLConnection) new URL( "http://localhost:8888/greeting" ).openConnection();
-        request.getResponseCode();
+        get( "http://localhost:8888/greeting" );
 
         assertThat(processor.called, equalTo(true));
     }

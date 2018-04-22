@@ -1,6 +1,7 @@
 package ericminio.camel;
 
 import com.sun.net.httpserver.HttpServer;
+import ericminio.support.HttpResponse;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.DefaultCamelContext;
@@ -8,12 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
-import java.net.URL;
 
+import static ericminio.support.GetRequest.get;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -60,16 +58,9 @@ public class HttpProxyTest {
             }
         });
 
-        HttpURLConnection request = (HttpURLConnection) new URL( "http://localhost:8888/greeting" ).openConnection();
-        assertThat( request.getResponseCode(), equalTo( 200 ) );
-        assertThat(getResponseBody(request), equalTo( "Hello World!" ) );
-    }
+        HttpResponse response = get( "http://localhost:8888/greeting" );
 
-    private String getResponseBody(HttpURLConnection request) throws IOException {
-        InputStream inputStream = request.getInputStream();
-        byte[] response = new byte[ inputStream.available() ];
-        inputStream.read( response );
-        return new String(response);
+        assertThat(response.getStatusCode(), equalTo(200 ));
+        assertThat(response.getBody(), equalTo( "Hello World!" ));
     }
-
 }
