@@ -1,6 +1,5 @@
 package ericminio.camel;
 
-import ericminio.MyProcessor;
 import ericminio.support.HttpResponse;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
@@ -45,17 +44,20 @@ public class HttpGetTest {
 
     @Test
     public void camelContextCanInterceptAnHttpCall() throws Exception {
-        MyProcessor processor = new MyProcessor();
+        class Call {
+            boolean wasMade;
+        };
+        Call call = new Call();
         context.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {
                 from("jetty:http://localhost:8888/greeting")
-                        .process(processor)
+                        .process(exchange -> { call.wasMade = true; } )
                         .setBody(constant("Hello World"));
             }
         });
         get( "http://localhost:8888/greeting" );
 
-        assertThat(processor.called, equalTo(true));
+        assertThat(call.wasMade, equalTo(true));
     }
 }
