@@ -11,8 +11,8 @@ import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.Endpoint;
 import java.net.URL;
 
+import static ericminio.support.SOAPMessageToString.stringify;
 import static ericminio.support.SOAPMessages.helloRequest;
-import static ericminio.support.SOAPResponse.stringify;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 

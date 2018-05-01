@@ -13,8 +13,8 @@ import org.junit.Test;
 
 import javax.xml.ws.Endpoint;
 
+import static ericminio.support.SOAPMessageToString.stringify;
 import static ericminio.support.SOAPMessages.helloRequest;
-import static ericminio.support.SOAPResponse.stringify;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
