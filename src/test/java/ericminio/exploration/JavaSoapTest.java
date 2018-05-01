@@ -1,4 +1,4 @@
-package ericminio.camel;
+package ericminio.exploration;
 
 import ericminio.support.HelloWorld;
 import org.junit.After;

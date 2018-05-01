@@ -1,4 +1,4 @@
-package ericminio.camel;
+package ericminio.exploration;
 
 import ericminio.support.Greeting;
 import ericminio.support.HelloWorld;
