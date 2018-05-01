@@ -7,13 +7,12 @@ import org.junit.Test;
 
 import javax.xml.soap.SOAPConnection;
 import javax.xml.soap.SOAPConnectionFactory;
-import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.Endpoint;
 import java.net.URL;
 
-import static ericminio.support.GreetingResponse.stringify;
-import static ericminio.support.Messages.helloRequest;
+import static ericminio.support.SOAPMessages.helloRequest;
+import static ericminio.support.SOAPResponse.stringify;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 

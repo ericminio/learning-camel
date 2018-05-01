@@ -1,7 +1,7 @@
 package ericminio.camel;
 
-import ericminio.support.Response;
 import ericminio.support.HelloWorld;
+import ericminio.support.SOAPResponse;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
@@ -11,16 +11,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.xml.soap.SOAPConnection;
-import javax.xml.soap.SOAPConnectionFactory;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
 import javax.xml.ws.Endpoint;
 
-import java.net.URL;
-
-import static ericminio.support.Messages.helloRequest;
-import static ericminio.support.GreetingResponse.stringify;
+import static ericminio.support.SOAPMessages.helloRequest;
+import static ericminio.support.SOAPResponse.stringify;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -49,7 +43,7 @@ public class SoapTest {
 
     @Test
     public void canBeCalledByCamel() throws Exception {
-        Response response = new Response();
+        SOAPResponse response = new SOAPResponse();
         context.addRoutes(new RouteBuilder() {
             @Override
             public void configure() throws Exception {

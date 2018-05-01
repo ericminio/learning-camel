@@ -2,7 +2,7 @@ package ericminio.support;
 
 import javax.xml.soap.*;
 
-public class Messages {
+public class SOAPMessages {
 
     public static SOAPMessage helloRequest() throws Exception {
         MessageFactory myMsgFct = MessageFactory.newInstance();
