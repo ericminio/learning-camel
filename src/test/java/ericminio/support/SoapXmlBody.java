@@ -25,6 +25,25 @@ public class SoapXmlBody {
     }
 
     @Test
+    public void resistsEmpty() {
+        String message = "<?xml version=\"1.0\" ?><ANY-ENV:Envelope xmlns:ANY-ENV=\"http://any/envelope/\"><ANY-ENV:Body></ANY-ENV:Body></ANY-ENV:Envelope>";
+
+        assertThat(SoapXmlBody.extractBodyFrom(message), equalTo(""));
+    }
+
+    @Test
+    public void resistsAbsence() {
+        String message = "<?xml version=\"1.0\" ?><ANY-ENV:Envelope xmlns:ANY-ENV=\"http://any/envelope/\"></ANY-ENV:Envelope>";
+
+        assertThat(SoapXmlBody.extractBodyFrom(message), equalTo(""));
+    }
+
+    @Test
+    public void resistsVoid() {
+        assertThat(SoapXmlBody.extractBodyFrom(""), equalTo(""));
+    }
+
+    @Test
     public void canExtractNamespace() {
         String message = "<?xml version=\"1.0\" ?><ANY-ENV:Envelope xmlns:ANY-ENV=\"http://any/envelope/\"><ANY-ENV:Body>any-body</ANY-ENV:Body></ANY-ENV:Envelope>";
 
@@ -36,6 +55,8 @@ public class SoapXmlBody {
         String xmlns = getNamespace(message);
 
         int startIndex = message.indexOf("<" + xmlns + ":Body>");
+        if (startIndex == -1) { return ""; }
+
         String trailing = message.substring(startIndex);
         int endIndex = trailing.indexOf("</" + xmlns + ":Body>");
 
@@ -46,8 +67,7 @@ public class SoapXmlBody {
         Pattern p = Pattern.compile("xmlns:(.*?)=");
         Matcher m = p.matcher(message);
         boolean found = m.find();
-        assertThat(found, equalTo(true));
 
-        return m.group(1);
+        return found ? m.group(1) : "";
     }
 }
